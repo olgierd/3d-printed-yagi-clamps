@@ -12,7 +12,7 @@ poz_el = 7;         // przesunięcie elementu, przód-tył
 poz_sr = 0;         // przesunięcie śruby, przód-tył
 nak_sr = 7;         // rozmiar nakrętki
 nak_gl = 3;         // głębokość wycięcia pod nakrętkę
-zas_sr = 6;         // średnica otworu zasilania
+zas_sr = 0;         // średnica otworu zasilania
 text = "D5";        // tekst
 text_s = 5;         // rozmiar tekstu
 
@@ -20,8 +20,11 @@ text_s = 5;         // rozmiar tekstu
 nak_el_sr = 5.5;    // rozmiar nakrętki
 nak_el_sr_gl = 3;   // głębokość wycięcia na nakrętkę
 el_sr = 3.3;        // średnica otworu na śrubę
+ms_dist = 22;       // dystans między śrubami
 
 ///////////////////////////////////////////////////
+
+$fn=80;
 
 difference() {
     // uchwyt
@@ -36,7 +39,7 @@ difference() {
     color("red")
     translate([-poz_el,0,el_nb])
     rotate([90,0,0])
-    cylinder(h=szer*2, d=d, $fn=80, center=true);
+    cylinder(h=szer*2, d=d, center=true);
 
     // podcięcie
     translate([dl/2-poz_el,0,el_nb])
@@ -46,16 +49,16 @@ difference() {
     // otwór pod śrubę
     translate([dl/4-poz_sr,0,0])
     color("green")
-    cylinder(d=sruba, h=2*wys, center=true, $fn=80);
+    cylinder(d=sruba, h=2*wys, center=true);
     
     
     // otwory pod śruby trzymające element
     for(x = [-1,1]) {
-        translate([dl/4-poz_sr,10*x,0])
+        translate([dl/4-poz_sr,ms_dist/2*x,0])
         color("green")
-        cylinder(d=el_sr,h=2*wys, center=true, $fn=80);
+        cylinder(d=el_sr,h=2*wys, center=true);
         
-        translate([dl/4-poz_sr,10*x,0])
+        translate([dl/4-poz_sr,ms_dist/2*x,0])
         color("yellow")
         rotate([0,0,30])
         cylinder(d=nak_el_sr/sin(60)+0.1, h=nak_el_sr_gl*2, center=true, $fn=6);
@@ -77,7 +80,7 @@ difference() {
         color("gray")
         translate([-poz_el,0,el_nb])
         rotate([0,-90,0])
-        cylinder(h=wys,d=zas_sr, $fn=80);
+        cylinder(h=wys,d=zas_sr);
     }
 
     // tekst
