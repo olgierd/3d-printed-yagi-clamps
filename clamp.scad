@@ -5,7 +5,7 @@ wys = 26;           // wysokość uchwytu
 zach = 6;           // zachodzi pod boom
 d = 8.1;            // srednica elementu
 el_nb = 13;         // środek elementu nad boomem
-gp = 2;             // grubość podcięcia
+gp = 1.5;           // grubość podcięcia
 sruba = 4.5;        // srednica sruby
 zaokr = 3;          // promień zaokrąglenia
 poz_el = 7;         // przesunięcie elementu, przód-tył
@@ -29,7 +29,7 @@ difference() {
     minkowski() {
     cube([dl-zaokr*2, szer, wys-zaokr*2], center=true);
         rotate([90,0,0])
-    cylinder(r=zaokr,h=0.00001, $fn=40);
+    cylinder(r=zaokr,h=0.00001, $fn=80);
     }
 
     // element
@@ -49,7 +49,7 @@ difference() {
     cylinder(d=sruba, h=2*wys, center=true, $fn=80);
     
     
-    // otwór pod śrubę
+    // otwory pod śruby trzymające element
     for(x = [-1,1]) {
         translate([dl/4-poz_sr,10*x,0])
         color("green")
